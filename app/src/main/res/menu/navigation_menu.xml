@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_flashlights"
+            android:icon="@drawable/baseline_flashlight_on_24"
+            android:title="@string/flashlights" />
+        <item
+            android:id="@+id/menu_colored_lights"
+            android:icon="@drawable/baseline_light_mode_24"
+            android:title="@string/colored_lights" />
+        <item
+            android:id="@+id/menu_sos_alerts"
+            android:icon="@drawable/baseline_sos_24"
+            android:title="@string/sos_alerts" />
+    </group>
+</menu>
