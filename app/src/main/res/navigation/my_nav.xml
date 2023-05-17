@@ -6,7 +6,7 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.root14.flashlightappsmarket.ui.mainfragment.MainFragment"
+        android:name="com.root14.flashlightappsmarket.view.ui.mainfragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/applicationFragment"
-        android:name="com.root14.flashlightappsmarket.ui.applicationFragment.ApplicationFragment"
+        android:name="com.root14.flashlightappsmarket.view.ui.applicationFragment.ApplicationFragment"
         android:label="fragment_application"
         tools:layout="@layout/fragment_application" >
         <action
