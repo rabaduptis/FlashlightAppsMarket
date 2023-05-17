@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.databinding.FragmentApplicationBinding
 import com.root14.flashlightappsmarket.model.AppItem
+
 /**
  * Created by ilkay on 17,May, 2023
  */

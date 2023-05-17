@@ -1,9 +1,9 @@
-package com.root14.flashlightappsmarket.view.ui.mainfragment
+package com.root14.flashlightappsmarket.view.ui.mainFragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
-import com.root14.flashlightappsmarket.databinding.ItemAppBinding
 import com.root14.flashlightappsmarket.databinding.ListCategoriesBinding
 import com.root14.flashlightappsmarket.model.AppItem
 import com.root14.flashlightappsmarket.model.CategoryItem

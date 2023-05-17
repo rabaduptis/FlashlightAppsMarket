@@ -1,4 +1,4 @@
-package com.root14.flashlightappsmarket.view.ui.mainfragment
+package com.root14.flashlightappsmarket.view.ui.mainFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
-import com.root14.flashlightappsmarket.databinding.FragmentApplicationBinding
 import com.root14.flashlightappsmarket.databinding.FragmentMainBinding
 import com.root14.flashlightappsmarket.model.CategoryItem
-import com.root14.flashlightappsmarket.view.ui.applicationFragment.AppAdapter
 
 /**
  * main fragment listing categories
@@ -35,13 +33,19 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val categoryList = createCategoryList()
-        categoryAdapter = CategoryAdapter(categoryList)
+
+        categoryAdapter = CategoryAdapter(categoryList) { categoryItem ->
+            println(categoryItem)
+            println("hey douglas!")
+
+        }
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
         binding.rvCategories.adapter = categoryAdapter
+
     }
 
     //test
-    private fun createCategoryList() = listOf<CategoryItem>(
+    private fun createCategoryList() = listOf(
         CategoryItem(
             context?.let { ContextCompat.getDrawable(it, R.drawable.baseline_flashlight_on_24) },
             "Flashlights"

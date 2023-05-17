@@ -1,4 +1,4 @@
-package com.root14.flashlightappsmarket.view.ui.mainfragment
+package com.root14.flashlightappsmarket.view.ui.mainFragment
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +7,10 @@ import com.root14.flashlightappsmarket.model.CategoryItem
 /**
  * Created by ilkay on 17,May, 2023
  */
-class CategoryAdapter(private val categoryItem: List<CategoryItem>) :
+class CategoryAdapter(
+    private val categoryItems: List<CategoryItem>,
+    private val onItemClick: (categoryItem: CategoryItem) -> Unit
+) :
     RecyclerView.Adapter<CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -15,11 +18,14 @@ class CategoryAdapter(private val categoryItem: List<CategoryItem>) :
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        val categoryItem = categoryItem[position]
+        val categoryItem = categoryItems[position]
         holder.bind(categoryItem)
+        holder.itemView.setOnClickListener {
+            onItemClick(categoryItem)
+        }
     }
 
     override fun getItemCount(): Int {
-        return categoryItem.size
+        return categoryItems.size
     }
 }
