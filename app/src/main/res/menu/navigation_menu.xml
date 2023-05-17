@@ -1,18 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText">
-
-    <item
-        android:id="@+id/nav_account"
-        android:title="My Account" />
-
-    <item
-        android:id="@+id/nav_settings"
-        android:title="Settings" />
-
-    <item
-        android:id="@+id/nav_logout"
-        android:title="Logout" />
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_flashlights"
+            android:icon="@drawable/baseline_flashlight_on_24"
+            android:title="@string/flashlights" />
+        <item
+            android:id="@+id/menu_colored_lights"
+            android:icon="@drawable/baseline_light_mode_24"
+            android:title="@string/colored_lights" />
+        <item
+            android:id="@+id/menu_sos_alerts"
+            android:icon="@drawable/baseline_sos_24"
+            android:title="@string/sos_alerts" />
+    </group>
 </menu>

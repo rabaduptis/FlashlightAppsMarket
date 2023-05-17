@@ -3,6 +3,9 @@
     <style name="Base.Theme.FlashlightAppsMarket" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+
+
     </style>
 
     <style name="Theme.FlashlightAppsMarket" parent="Base.Theme.FlashlightAppsMarket" />

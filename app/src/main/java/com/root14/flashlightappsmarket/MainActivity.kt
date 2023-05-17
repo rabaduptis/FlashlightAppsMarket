@@ -31,9 +31,6 @@ class MainActivity : AppCompatActivity() {
 
         //action bar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
