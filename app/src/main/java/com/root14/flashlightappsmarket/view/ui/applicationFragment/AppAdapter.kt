@@ -1,9 +1,12 @@
-package com.root14.flashlightappsmarket.view
+package com.root14.flashlightappsmarket.view.ui.applicationFragment
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.root14.flashlightappsmarket.model.AppItem
 
+/**
+ * Created by ilkay on 17,May, 2023
+ */
 class AppAdapter(private val appList: List<AppItem>) : RecyclerView.Adapter<AppViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppViewHolder {

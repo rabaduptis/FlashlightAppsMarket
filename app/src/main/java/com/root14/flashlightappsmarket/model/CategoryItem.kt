@@ -5,11 +5,7 @@ import android.graphics.drawable.Drawable
 /**
  * Created by ilkay on 17,May, 2023
  */
-
-data class AppItem(
+data class CategoryItem(
     val icon: Drawable?,
-    val name: String,
-    val ratingValue: Float,
-    val ratingCount: Int,
-    val downloadCount: Int
+    val name: String
 )

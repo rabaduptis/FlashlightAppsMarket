@@ -9,10 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.databinding.FragmentApplicationBinding
-import com.root14.flashlightappsmarket.databinding.FragmentMainBinding
 import com.root14.flashlightappsmarket.model.AppItem
-import com.root14.flashlightappsmarket.view.AppAdapter
-
+/**
+ * Created by ilkay on 17,May, 2023
+ */
 
 /**
  * list applications
