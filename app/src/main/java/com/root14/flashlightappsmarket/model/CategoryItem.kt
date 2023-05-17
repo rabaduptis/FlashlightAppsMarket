@@ -7,5 +7,7 @@ import android.graphics.drawable.Drawable
  */
 data class CategoryItem(
     val icon: Drawable?,
-    val name: String
+    val name: String,
+    val type: CategoryType = CategoryType.DEFAULT
 )
+

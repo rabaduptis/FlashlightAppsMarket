@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.databinding.FragmentMainBinding
 import com.root14.flashlightappsmarket.model.CategoryItem
+import com.root14.flashlightappsmarket.model.CategoryType
 
 /**
  * main fragment listing categories
@@ -46,7 +47,7 @@ class MainFragment : Fragment() {
         val categoryList = createCategoryList()
         categoryAdapter = CategoryAdapter(categoryList) { categoryItem ->
             println("clicked ${categoryItem.name}")
-
+            println("type ${categoryItem.type}")
             navController.navigate(R.id.applicationFragment, null, navOptions)
 
         }
@@ -59,15 +60,18 @@ class MainFragment : Fragment() {
     private fun createCategoryList() = listOf(
         CategoryItem(
             context?.let { ContextCompat.getDrawable(it, R.drawable.baseline_flashlight_on_24) },
-            "Flashlights"
+            "Flashlights",
+            CategoryType.FLASHLIGHTS
         ),
         CategoryItem(
             context?.let { ContextCompat.getDrawable(it, R.drawable.baseline_light_mode_24) },
-            "Colored Lights"
+            "Colored Lights",
+            CategoryType.COLOREDLIGHTS
         ),
         CategoryItem(
             context?.let { ContextCompat.getDrawable(it, R.drawable.baseline_sos_24) },
-            "Sos Alerts"
+            "Sos Alerts",
+            CategoryType.SOSALERTS
         )
     )
 }
