@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.databinding.FragmentApplicationBinding
 import com.root14.flashlightappsmarket.model.AppItem
+import com.root14.flashlightappsmarket.view.ui.mainFragment.MainFragment
 
 /**
  * Created by ilkay on 17,May, 2023
@@ -22,6 +24,10 @@ class ApplicationFragment : Fragment() {
 
     private lateinit var binding: FragmentApplicationBinding
     private lateinit var appAdapter: AppAdapter
+
+
+    private val args: ApplicationFragmentArgs by navArgs()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -41,6 +47,9 @@ class ApplicationFragment : Fragment() {
         appAdapter = AppAdapter(applist)
         binding.rvApps.layoutManager = LinearLayoutManager(requireContext())
         binding.rvApps.adapter = appAdapter
+
+
+        println("geldi ${args.categoryType}")
     }
 
 
