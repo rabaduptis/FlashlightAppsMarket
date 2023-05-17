@@ -8,18 +8,12 @@
         android:id="@+id/mainFragment"
         android:name="com.root14.flashlightappsmarket.view.ui.mainFragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
-        <action
-            android:id="@+id/action_mainFragment_to_applicationFragment"
-            app:destination="@id/applicationFragment" />
+        tools:layout="@layout/fragment_main">
     </fragment>
     <fragment
         android:id="@+id/applicationFragment"
         android:name="com.root14.flashlightappsmarket.view.ui.applicationFragment.ApplicationFragment"
         android:label="fragment_application"
-        tools:layout="@layout/fragment_application" >
-        <action
-            android:id="@+id/action_applicationFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+        tools:layout="@layout/fragment_application">
     </fragment>
 </navigation>

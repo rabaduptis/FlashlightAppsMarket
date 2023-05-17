@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.databinding.FragmentMainBinding
@@ -32,11 +34,20 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val categoryList = createCategoryList()
+        val navController = findNavController()
 
+        val navOptions = NavOptions.Builder()
+            .setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
+            .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
+            .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
+            .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
+            .build()
+
+        val categoryList = createCategoryList()
         categoryAdapter = CategoryAdapter(categoryList) { categoryItem ->
-            println(categoryItem)
-            println("hey douglas!")
+            println("clicked ${categoryItem.name}")
+
+            navController.navigate(R.id.applicationFragment, null, navOptions)
 
         }
         binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
