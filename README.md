@@ -2,11 +2,11 @@
 
 ### An application that contains the information of various applications in 3 categories from an API, saves it to the database and directs it directly to the Google Play Store screen.
 
--ProgressBar
--RefreshButton
--Sort options
--Search Mechanism
--Drawe Menu
+- ProgressBar
+- RefreshButton
+- Sort options
+- Search Mechanism
+- Drawe Menu
 
 #### Features
 ------------
