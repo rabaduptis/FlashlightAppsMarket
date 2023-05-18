@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.root14.flashlightappsmarket.data.entity.ColoredLight
-import com.root14.flashlightappsmarket.data.entity.Flashlight
 
 @Dao
 interface ColoredLightDao {

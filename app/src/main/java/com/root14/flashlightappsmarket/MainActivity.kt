@@ -1,29 +1,17 @@
 package com.root14.flashlightappsmarket
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout.Directions
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.SearchView
-import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.google.android.material.navigation.NavigationView
 import com.root14.flashlightappsmarket.databinding.ActivityMainBinding
 import com.root14.flashlightappsmarket.model.CategoryType
 import com.root14.flashlightappsmarket.view.ui.applicationFragment.ApplicationFragmentDirections
 import com.root14.flashlightappsmarket.view.ui.mainFragment.MainFragmentDirections
-import com.root14.flashlightappsmarket.viewmodel.ApplicationFragmentViewModel
-import com.root14.flashlightappsmarket.viewmodel.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

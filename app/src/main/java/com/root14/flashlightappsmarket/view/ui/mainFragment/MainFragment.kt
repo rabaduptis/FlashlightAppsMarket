@@ -1,22 +1,18 @@
 package com.root14.flashlightappsmarket.view.ui.mainFragment
 
-import android.opengl.Visibility
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.databinding.FragmentMainBinding
 import com.root14.flashlightappsmarket.model.CategoryItem
 import com.root14.flashlightappsmarket.model.CategoryType
-import com.root14.flashlightappsmarket.view.ui.applicationFragment.ApplicationFragment
 import com.root14.flashlightappsmarket.viewmodel.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

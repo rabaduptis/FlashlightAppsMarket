@@ -3,7 +3,6 @@ package com.root14.flashlightappsmarket.view.ui.applicationFragment
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.root14.flashlightappsmarket.model.AppItem
-import com.root14.flashlightappsmarket.model.CategoryItem
 
 /**
  * Created by ilkay on 17,May, 2023

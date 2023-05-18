@@ -1,14 +1,10 @@
 package com.root14.flashlightappsmarket.view.ui.applicationFragment
 
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.databinding.ItemAppBinding
 import com.root14.flashlightappsmarket.model.AppItem
 
