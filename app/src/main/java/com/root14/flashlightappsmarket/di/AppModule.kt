@@ -1,6 +1,12 @@
 package com.root14.flashlightappsmarket.di
 
+import android.app.Application
+import androidx.room.Room
 import com.root14.flashlightappsmarket.BuildConfig
+import com.root14.flashlightappsmarket.data.AppDatabase
+import com.root14.flashlightappsmarket.data.dao.ColoredLightDao
+import com.root14.flashlightappsmarket.data.dao.FlashlightDao
+import com.root14.flashlightappsmarket.data.dao.SOSAlertDao
 import com.root14.flashlightappsmarket.network.Utility
 import com.root14.flashlightappsmarket.network.api.ApiHelper
 import com.root14.flashlightappsmarket.network.api.ApiHelperImpl
@@ -19,6 +25,28 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(application: Application): AppDatabase {
+        return Room.databaseBuilder(application, AppDatabase::class.java, "app_database.db")
+            .build()
+    }
+
+    @Provides
+    fun provideFlashlightDao(appDatabase: AppDatabase): FlashlightDao {
+        return appDatabase.flashlightDao()
+    }
+
+    @Provides
+    fun provideColoredLightDao(appDatabase: AppDatabase): ColoredLightDao {
+        return appDatabase.coloredLightDao()
+    }
+
+    @Provides
+    fun provideSOSAlertDao(appDatabase: AppDatabase): SOSAlertDao {
+        return appDatabase.sosAlertDao()
+    }
 
     @Provides
     fun provideBaseUrl() = Utility.BASE_URL
@@ -52,5 +80,4 @@ object AppModule {
     @Provides
     @Singleton
     fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
-
 }

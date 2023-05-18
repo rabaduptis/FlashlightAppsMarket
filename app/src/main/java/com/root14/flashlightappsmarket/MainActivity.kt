@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         mainFragmentViewModel.flashLightRes.observe(this) {
-            println("geldi $it")
+            //println("geldi $it")
         }
 
     }
