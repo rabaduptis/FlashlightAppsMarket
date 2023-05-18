@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.viewModelScope
 import com.root14.flashlightappsmarket.databinding.ActivityMainBinding
+import com.root14.flashlightappsmarket.viewmodel.ApplicationFragmentViewModel
 import com.root14.flashlightappsmarket.viewmodel.MainFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -18,8 +19,6 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-
-    private val mainFragmentViewModel: MainFragmentViewModel by viewModels()
 
     lateinit var drawerLayout: DrawerLayout
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
@@ -41,11 +40,6 @@ class MainActivity : AppCompatActivity() {
 
         //action bar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        mainFragmentViewModel.flashLightRes.observe(this) {
-            //println("geldi $it")
-        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

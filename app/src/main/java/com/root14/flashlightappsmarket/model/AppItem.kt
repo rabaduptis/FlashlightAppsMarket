@@ -7,9 +7,9 @@ import android.graphics.drawable.Drawable
  */
 
 data class AppItem(
-    val icon: Drawable?,
+    val icon: String,
     val name: String,
-    val ratingValue: Float,
-    val ratingCount: Int,
-    val downloadCount: Int
+    val ratingValue: String,
+    val ratingCount: String,
+    val downloadCount: String
 )

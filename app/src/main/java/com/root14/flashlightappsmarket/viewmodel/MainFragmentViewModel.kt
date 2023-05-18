@@ -29,12 +29,14 @@ class MainFragmentViewModel @Inject constructor(
     private val sosAlertDao: SOSAlertDao
 ) : ViewModel() {
 
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     init {
         Log.d(this::class.java.name, "has initialized")
+    }
+
+    fun fetchAPI() {
         viewModelScope.launch {
             if (flashlightDao.getAllFlashlights().isEmpty()) {
                 fetchFlashLight()
@@ -66,8 +68,8 @@ class MainFragmentViewModel @Inject constructor(
                         packageName = it.packageName.toString(),
                         iconUrl = it.iconUrl.toString(),
                         price = it.price.toString(),
-                        ratingValue = it.ratingValue,
-                        ratingCount = it.ratingCount,
+                        ratingValue = it.ratingValue.toString(),
+                        ratingCount = it.ratingCount.toString(),
                         downloads = it.downloads.toString(),
                         version = it.version.toString(),
                         category = it.category.toString(),
@@ -79,8 +81,9 @@ class MainFragmentViewModel @Inject constructor(
 
                 flashlightDao.insertAllFlashlights(flashlightList)
                 _flashLightRes.postValue(Resource.success(appResponseList))
-                Log.d("fetchFlashLight", "db insert success.")
 
+                _isLoading.postValue(false)
+                Log.d("fetchFlashLight", "db insert success.")
             } else {
                 _flashLightRes.postValue(Resource.error(it.errorBody().toString(), null))
                 Log.e("fetchFlashLight", "error: ${it.errorBody().toString()} ")
@@ -105,8 +108,8 @@ class MainFragmentViewModel @Inject constructor(
                         packageName = it.packageName.toString(),
                         iconUrl = it.iconUrl.toString(),
                         price = it.price.toString(),
-                        ratingValue = it.ratingValue,
-                        ratingCount = it.ratingCount,
+                        ratingValue = it.ratingValue.toString(),
+                        ratingCount = it.ratingCount.toString(),
                         downloads = it.downloads.toString(),
                         version = it.version.toString(),
                         category = it.category.toString(),
@@ -118,8 +121,9 @@ class MainFragmentViewModel @Inject constructor(
 
                 coloredLightDao.insertAllColoredLight(coloredLight)
                 _colorLight.postValue(Resource.success(appResponseList))
-                Log.d("fetchFlashLight", "db insert success.")
 
+                Log.d("fetchFlashLight", "db insert success.")
+                _isLoading.postValue(false)
             } else {
                 _colorLight.postValue(Resource.error(it.errorBody().toString(), null))
                 Log.e("fetchColorLight", "error: ${it.errorBody().toString()} ")
@@ -144,8 +148,8 @@ class MainFragmentViewModel @Inject constructor(
                         packageName = it.packageName.toString(),
                         iconUrl = it.iconUrl.toString(),
                         price = it.price.toString(),
-                        ratingValue = it.ratingValue,
-                        ratingCount = it.ratingCount,
+                        ratingValue = it.ratingValue.toString(),
+                        ratingCount = it.ratingCount.toString(),
                         downloads = it.downloads.toString(),
                         version = it.version.toString(),
                         category = it.category.toString(),
@@ -157,7 +161,9 @@ class MainFragmentViewModel @Inject constructor(
 
                 sosAlertDao.insertAllSOSAlert(sosAlert)
                 _sosAlerts.postValue(Resource.success(appResponseList))
+
                 Log.d("fetchFlashLight", "db insert success.")
+                _isLoading.postValue(false)
 
             } else {
                 _sosAlerts.postValue(Resource.error(it.errorBody().toString(), null))
@@ -166,8 +172,4 @@ class MainFragmentViewModel @Inject constructor(
             _isLoading.postValue(false)
         }
     }
-
-    private fun insertFlashLight() = viewModelScope.launch {
-    }
-
 }
