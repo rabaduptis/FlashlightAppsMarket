@@ -9,14 +9,14 @@ import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.root14.flashlightappsmarket.data.SortType
 import com.root14.flashlightappsmarket.data.dao.ColoredLightDao
 import com.root14.flashlightappsmarket.data.dao.FlashlightDao
 import com.root14.flashlightappsmarket.data.dao.SOSAlertDao
 import com.root14.flashlightappsmarket.data.entity.ColoredLight
 import com.root14.flashlightappsmarket.data.entity.Flashlight
 import com.root14.flashlightappsmarket.data.entity.SOSAlert
-import com.root14.flashlightappsmarket.network.Resource
-import com.root14.flashlightappsmarket.network.models.response.AppResponse
+import com.root14.flashlightappsmarket.model.AppItem
 import com.root14.flashlightappsmarket.network.repo.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -51,8 +51,8 @@ class ApplicationFragmentViewModel @Inject constructor(
     }
 
 
-    //add search (via name and/or packageName) support for the list.
-    // and/or based on "or" preferred
+    //case: add search (via name and/or packageName) support for the list.
+    // and/or based on, "or" preferred
     //----------------------------------------------------------------------------------------------
 
     //region searchByName
@@ -92,8 +92,25 @@ class ApplicationFragmentViewModel @Inject constructor(
      */
     private val _getAllFlashlightsRes = MutableLiveData<List<Flashlight>>()
     val getAllFlashlightsRes: LiveData<List<Flashlight>> get() = _getAllFlashlightsRes
-    private suspend fun getAllFlashlights() = viewModelScope.launch {
+    suspend fun getAllFlashlights(sortType: SortType = SortType.DEFAULT) = viewModelScope.launch {
         _getAllFlashlightsRes.postValue(flashlightDao.getAllFlashlights())
+        when (sortType) {
+            SortType.DEFAULT -> {
+
+            }
+
+            SortType.VALUE -> {
+                val flashlightList = _getAllFlashlightsRes.value
+                val sortedList = flashlightList?.sortedBy { it.ratingValue }
+                _getAllFlashlightsRes.postValue(sortedList!!)
+            }
+
+            SortType.COUNT -> {
+                val flashlightList = _getAllFlashlightsRes.value
+                val sortedList = flashlightList?.sortedBy { it.ratingCount }
+                _getAllFlashlightsRes.postValue(sortedList!!)
+            }
+        }
     }
 
     /**
@@ -101,30 +118,52 @@ class ApplicationFragmentViewModel @Inject constructor(
      */
     private val _colorLightRes = MutableLiveData<List<ColoredLight>>()
     val getAllColorLightRes: LiveData<List<ColoredLight>> get() = _colorLightRes
-    private suspend fun getAllColoredLights() = viewModelScope.launch {
+    suspend fun getAllColoredLights(sortType: SortType = SortType.DEFAULT) = viewModelScope.launch {
         _colorLightRes.postValue(coloredLightDao.getAllColoredLights())
+        when (sortType) {
+            SortType.DEFAULT -> {
+
+            }
+
+            SortType.VALUE -> {
+                val coloredLightList = _colorLightRes.value
+                val sortedList = coloredLightList?.sortedBy { it.ratingValue }
+                _colorLightRes.postValue(sortedList!!)
+            }
+
+            SortType.COUNT -> {
+                val coloredLightList = _colorLightRes.value
+                val sortedList = coloredLightList?.sortedBy { it.ratingCount }
+                _colorLightRes.postValue(sortedList!!)
+            }
+        }
     }
 
     /**
      * @return all SosAlerts from db
      */
     private val _sosAlerts = MutableLiveData<List<SOSAlert>>()
-    val getAllSosAlerts: LiveData<List<SOSAlert>> get() = _sosAlerts
-    private suspend fun getAllSosAlerts() = viewModelScope.launch {
-        _sosAlerts.postValue(sosAlertDao.getAllSOSAlerts())
-    }
+    val getAllSosAlertsRes: LiveData<List<SOSAlert>> get() = _sosAlerts
+    suspend fun getAllSosAlerts(sortType: SortType = SortType.DEFAULT) =
+        viewModelScope.launch {
+            _sosAlerts.postValue(sosAlertDao.getAllSOSAlerts())
+            when (sortType) {
+                SortType.DEFAULT -> {
 
-    fun loadImage(imageUrl: String, imageState: MutableState<Drawable?>) {
-        glide.load(imageUrl).into(object : CustomTarget<Drawable?>() {
-            override fun onResourceReady(
-                resource: Drawable, transition: Transition<in Drawable?>?
-            ) {
-                imageState.value = resource
+                }
+
+                SortType.VALUE -> {
+                    val sosAlertList = _sosAlerts.value
+                    val sortedList = sosAlertList?.sortedBy { it.ratingValue }
+                    _sosAlerts.postValue(sortedList!!)
+                }
+
+                SortType.COUNT -> {
+                    val sosAlertList = _sosAlerts.value
+                    val sortedList = sosAlertList?.sortedBy { it.ratingCount }
+                    _sosAlerts.postValue(sortedList!!)
+                }
             }
 
-            override fun onLoadCleared(placeholder: Drawable?) {}
-        })
-    }
-
-
+        }
 }

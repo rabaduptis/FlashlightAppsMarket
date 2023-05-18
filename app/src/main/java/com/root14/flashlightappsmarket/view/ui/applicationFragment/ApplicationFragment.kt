@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.data.QueryType
+import com.root14.flashlightappsmarket.data.SortType
 import com.root14.flashlightappsmarket.data.entity.ColoredLight
 import com.root14.flashlightappsmarket.data.entity.Flashlight
 import com.root14.flashlightappsmarket.data.entity.SOSAlert
@@ -59,6 +61,7 @@ class ApplicationFragment : Fragment() {
 
         updateUi(args)//list all apps
 
+        //search bar
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 updateUi(args = args, QueryType.PARAMETERIZED, p0.toString())
@@ -68,12 +71,70 @@ class ApplicationFragment : Fragment() {
 
             override fun onQueryTextChange(p0: String?): Boolean {
                 if (p0.isNullOrBlank()) {
+                    applicationFragmentViewModel.fetchDB()
                     updateUi(args)
                 }
                 return true
             }
 
         })
+
+        //spinner
+        binding.sortSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                applicationFragmentViewModel.viewModelScope.launch {
+                    when (p2) {
+                        0 -> {
+                            applicationFragmentViewModel.getAllSosAlerts()
+                        }
+
+                        1 -> {
+                            //rating value
+                            when (args.categoryType) {
+                                CategoryType.FLASHLIGHTS -> {
+                                    applicationFragmentViewModel.getAllFlashlights(SortType.VALUE)
+                                }
+
+                                CategoryType.SOSALERTS -> {
+                                    applicationFragmentViewModel.getAllSosAlerts(SortType.VALUE)
+                                }
+
+                                CategoryType.COLOREDLIGHTS -> {
+                                    applicationFragmentViewModel.getAllSosAlerts(SortType.VALUE)
+                                }
+
+                                CategoryType.DEFAULT -> {}
+                            }
+                        }
+
+                        2 -> {
+                            //raiting count
+                            when (args.categoryType) {
+                                CategoryType.FLASHLIGHTS -> {
+                                    applicationFragmentViewModel.getAllFlashlights(SortType.COUNT)
+                                }
+
+                                CategoryType.SOSALERTS -> {
+                                    applicationFragmentViewModel.getAllSosAlerts(SortType.COUNT)
+                                }
+
+                                CategoryType.COLOREDLIGHTS -> {
+                                    applicationFragmentViewModel.getAllSosAlerts(SortType.COUNT)
+                                }
+
+                                CategoryType.DEFAULT -> {}
+                            }
+                        }
+                    }
+                    updateUi(args)
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+        }
     }
 
     private fun updateUi(
@@ -82,6 +143,7 @@ class ApplicationFragment : Fragment() {
         searchQuery: String = ""
     ) {
         applicationFragmentViewModel.viewModelScope.launch {
+
             if (queryType == QueryType.UNPARAMETER) {
                 when (args.categoryType) {
                     CategoryType.FLASHLIGHTS -> {
@@ -97,7 +159,7 @@ class ApplicationFragment : Fragment() {
                     }
 
                     CategoryType.SOSALERTS -> {
-                        applicationFragmentViewModel.getAllSosAlerts.observe(viewLifecycleOwner) {
+                        applicationFragmentViewModel.getAllSosAlertsRes.observe(viewLifecycleOwner) {
                             setupAppAdapter(it.sosAlert2AppItemList())
                         }
                     }

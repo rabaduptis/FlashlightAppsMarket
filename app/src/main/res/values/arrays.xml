@@ -1,5 +1,6 @@
 <resources>
     <array name="sort_options">
+        <item>Default</item>
         <item>Rating Value</item>
         <item>Rating Count</item>
     </array>
