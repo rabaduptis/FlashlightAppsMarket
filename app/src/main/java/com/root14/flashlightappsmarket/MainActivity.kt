@@ -2,6 +2,7 @@ package com.root14.flashlightappsmarket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout.Directions
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -63,25 +64,45 @@ class MainActivity : AppCompatActivity() {
         //drawer menu
         binding.navigationView.setNavigationItemSelectedListener { item ->
             val action = MainFragmentDirections.actionMainFragmentToApplicationFragment()
+            val actionSelf = ApplicationFragmentDirections.actionApplicationFragmentSelf()
             when (item.itemId) {
                 R.id.menu_flashlights -> {
 
-                    action.categoryType = CategoryType.FLASHLIGHTS
-                    navController.navigate(action)
+
+                    if (navController.currentDestination?.id == R.id.applicationFragment) {
+                        actionSelf.categoryType = CategoryType.FLASHLIGHTS
+                        navController.navigate(actionSelf)
+                    } else {
+                        action.categoryType = CategoryType.FLASHLIGHTS
+                        navController.navigate(action)
+                    }
+
                     drawerLayout.closeDrawers()
                     true
                 }
 
                 R.id.menu_colored_lights -> {
-                    action.categoryType = CategoryType.COLOREDLIGHTS
-                    navController.navigate(action)
+
+                    if (navController.currentDestination?.id == R.id.applicationFragment) {
+                        actionSelf.categoryType = CategoryType.COLOREDLIGHTS
+                        navController.navigate(actionSelf)
+                    } else {
+                        action.categoryType = CategoryType.COLOREDLIGHTS
+                        navController.navigate(action)
+                    }
                     drawerLayout.closeDrawers()
                     true
                 }
 
                 R.id.menu_sos_alerts -> {
-                    action.categoryType = CategoryType.SOSALERTS
-                    navController.navigate(action)
+
+                    if (navController.currentDestination?.id == R.id.applicationFragment) {
+                        actionSelf.categoryType = CategoryType.SOSALERTS
+                        navController.navigate(actionSelf)
+                    } else {
+                        action.categoryType = CategoryType.SOSALERTS
+                        navController.navigate(action)
+                    }
                     drawerLayout.closeDrawers()
                     true
                 }

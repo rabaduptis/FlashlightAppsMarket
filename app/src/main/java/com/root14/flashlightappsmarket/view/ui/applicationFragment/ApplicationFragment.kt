@@ -212,7 +212,9 @@ class ApplicationFragment : Fragment() {
     }
 
     private fun setupAppAdapter(items: List<AppItem>) {
-        appAdapter = AppAdapter(items)
+        appAdapter = AppAdapter(items) {
+            applicationFragmentViewModel.checkApp(it.packageName, binding.root.context)
+        }
         binding.rvApps.layoutManager = LinearLayoutManager(requireContext())
         binding.rvApps.adapter = appAdapter
     }
@@ -225,7 +227,8 @@ private fun List<Flashlight>.flashlightToAppItemList(): List<AppItem> {
             name = flashlight.name.toString(),
             ratingValue = flashlight.ratingValue.toString(),
             ratingCount = flashlight.ratingCount.toString(),
-            downloadCount = flashlight.downloads.toString()
+            downloadCount = flashlight.downloads.toString(),
+            packageName = flashlight.packageName.toString()
         )
     }
 }
@@ -237,7 +240,8 @@ private fun List<ColoredLight>.coloredLight2AppItemList(): List<AppItem> {
             name = flashlight.name.toString(),
             ratingValue = flashlight.ratingValue.toString(),
             ratingCount = flashlight.ratingCount.toString(),
-            downloadCount = flashlight.downloads.toString()
+            downloadCount = flashlight.downloads.toString(),
+            packageName = flashlight.packageName.toString()
         )
     }
 }
@@ -249,7 +253,8 @@ private fun List<SOSAlert>.sosAlert2AppItemList(): List<AppItem> {
             name = flashlight.name.toString(),
             ratingValue = flashlight.ratingValue.toString(),
             ratingCount = flashlight.ratingCount.toString(),
-            downloadCount = flashlight.downloads.toString()
+            downloadCount = flashlight.downloads.toString(),
+            packageName = flashlight.packageName.toString()
         )
     }
 }

@@ -1,14 +1,15 @@
 package com.root14.flashlightappsmarket.viewmodel
 
-import android.graphics.drawable.Drawable
-import androidx.compose.runtime.MutableState
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.RequestManager
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.root14.flashlightappsmarket.data.SortType
 import com.root14.flashlightappsmarket.data.dao.ColoredLightDao
 import com.root14.flashlightappsmarket.data.dao.FlashlightDao
@@ -16,7 +17,6 @@ import com.root14.flashlightappsmarket.data.dao.SOSAlertDao
 import com.root14.flashlightappsmarket.data.entity.ColoredLight
 import com.root14.flashlightappsmarket.data.entity.Flashlight
 import com.root14.flashlightappsmarket.data.entity.SOSAlert
-import com.root14.flashlightappsmarket.model.AppItem
 import com.root14.flashlightappsmarket.network.repo.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -42,13 +42,40 @@ class ApplicationFragmentViewModel @Inject constructor(
         }
     }
 
-    private suspend fun sortRaitingValue() {
+    fun checkApp(packageName: String, context: Context) {
+        val packageManager = context.packageManager
 
+        try {
+            val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
+
+            if (launchIntent != null) {
+                context.startActivity(launchIntent)
+            } else {
+                openPlayStore(packageName, context)
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            openPlayStore(packageName, context)
+        } catch (e: ActivityNotFoundException) {
+            openPlayStore(packageName, context)
+        }
     }
 
-    private suspend fun raitingCount() {
-
+    private fun openPlayStore(packageName: String, context: Context) {
+        try {
+            val playStoreIntent = Intent(Intent.ACTION_VIEW)
+            playStoreIntent.data = Uri.parse("market://details?id=$packageName")
+            playStoreIntent.setPackage("com.android.vending")
+            context.startActivity(playStoreIntent)
+        } catch (e: ActivityNotFoundException) {
+            val playStoreIntent = Intent(Intent.ACTION_VIEW)
+            playStoreIntent.data =
+                Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+            context.startActivity(playStoreIntent)
+        }
     }
+
+
 
 
     //case: add search (via name and/or packageName) support for the list.

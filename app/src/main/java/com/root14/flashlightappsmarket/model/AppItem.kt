@@ -11,5 +11,6 @@ data class AppItem(
     val name: String,
     val ratingValue: String,
     val ratingCount: String,
-    val downloadCount: String
+    val downloadCount: String,
+    val packageName: String
 )
