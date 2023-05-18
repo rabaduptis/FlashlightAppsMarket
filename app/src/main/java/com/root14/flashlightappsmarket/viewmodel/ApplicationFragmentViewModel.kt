@@ -1,9 +1,14 @@
 package com.root14.flashlightappsmarket.viewmodel
 
+import android.graphics.drawable.Drawable
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bumptech.glide.RequestManager
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.root14.flashlightappsmarket.data.dao.ColoredLightDao
 import com.root14.flashlightappsmarket.data.dao.FlashlightDao
 import com.root14.flashlightappsmarket.data.dao.SOSAlertDao
@@ -26,7 +31,8 @@ class ApplicationFragmentViewModel @Inject constructor(
     private val mainRepository: MainRepository,
     private val flashlightDao: FlashlightDao,
     private val coloredLightDao: ColoredLightDao,
-    private val sosAlertDao: SOSAlertDao
+    private val sosAlertDao: SOSAlertDao,
+    private val glide: RequestManager
 ) : ViewModel() {
 
 
@@ -69,6 +75,18 @@ class ApplicationFragmentViewModel @Inject constructor(
     val getAllSosAlerts: LiveData<List<SOSAlert>> get() = _sosAlerts
     private suspend fun getAllSosAlerts() = viewModelScope.launch {
         _sosAlerts.postValue(sosAlertDao.getAllSOSAlerts())
+    }
+
+    fun loadImage(imageUrl: String, imageState: MutableState<Drawable?>) {
+        glide.load(imageUrl).into(object : CustomTarget<Drawable?>() {
+            override fun onResourceReady(
+                resource: Drawable, transition: Transition<in Drawable?>?
+            ) {
+                imageState.value = resource
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) {}
+        })
     }
 
 

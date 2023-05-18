@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.root14.flashlightappsmarket.databinding.ItemAppBinding
 import com.root14.flashlightappsmarket.model.AppItem
 
@@ -14,7 +16,10 @@ import com.root14.flashlightappsmarket.model.AppItem
 class AppViewHolder(private val binding: ItemAppBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(appItem: AppItem) {
-        // binding.imageViewIcon.setImageDrawable(appItem.icon)
+        Glide.with(binding.root)
+            .load(appItem.icon)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .into(binding.imageViewIcon)
         binding.textViewName.text = appItem.name
         binding.textViewRatingValue.text = appItem.ratingValue.toString()
         binding.textViewRatingCount.text = appItem.ratingCount.toString()

@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.root14.flashlightappsmarket.R
 import com.root14.flashlightappsmarket.data.entity.ColoredLight
 import com.root14.flashlightappsmarket.data.entity.Flashlight
 import com.root14.flashlightappsmarket.data.entity.SOSAlert
@@ -49,6 +51,7 @@ class ApplicationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         applicationFragmentViewModel.fetchDB()
+        (activity as AppCompatActivity).supportActionBar?.title = args.categoryType.toString()
 
         when (args.categoryType) {
             CategoryType.FLASHLIGHTS -> {
@@ -73,6 +76,11 @@ class ApplicationFragment : Fragment() {
 
             }
         }
+    }
+
+    override fun onDestroy() {
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.app_name)
+        super.onDestroy()
     }
 
     private fun setupAppAdapter(items: List<AppItem>) {
