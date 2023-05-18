@@ -9,6 +9,7 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -81,13 +82,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
             }
-
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         //TODO:if its not in application fragment false here
-        val some = true
+        val some = false
         if (some) {
             menuInflater.inflate(R.menu.main_menu, menu)
             return true
