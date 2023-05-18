@@ -44,7 +44,6 @@ class ApplicationFragmentViewModel @Inject constructor(
         }
     }
 
-
     /**
      * @return all flashLights from db
      */

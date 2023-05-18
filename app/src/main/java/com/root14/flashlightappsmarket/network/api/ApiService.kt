@@ -10,13 +10,13 @@ import retrofit2.http.POST
 interface ApiService {
     @Headers("JsonStub-User-Key: f5e0861a-b53d-4b80-9c28-2233780c3d5d")
     @GET("flashlights")
-    suspend fun login(): Response<List<AppResponse>>
+    suspend fun flashlights(): Response<List<AppResponse>>
 
     @Headers("JsonStub-User-Key: f5e0861a-b53d-4b80-9c28-2233780c3d5d")
     @GET("colorlights")
-    suspend fun register(): Response<List<AppResponse>>
+    suspend fun colorlights(): Response<List<AppResponse>>
 
     @Headers("JsonStub-User-Key: f5e0861a-b53d-4b80-9c28-2233780c3d5d")
     @GET("sosalerts")
-    suspend fun loadFeed(): Response<List<AppResponse>>
+    suspend fun sosalerts(): Response<List<AppResponse>>
 }

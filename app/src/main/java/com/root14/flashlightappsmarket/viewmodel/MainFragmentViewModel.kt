@@ -96,7 +96,7 @@ class MainFragmentViewModel @Inject constructor(
     val colorLight: LiveData<Resource<List<AppResponse>>> get() = _colorLight
     private fun fetchColorLight() = viewModelScope.launch {
         _isLoading.postValue(true)
-        mainRepository.flashlights().let { it ->
+        mainRepository.colorlights().let { it ->
             if (it.isSuccessful) {
                 _colorLight.postValue(Resource.success(it.body()))
                 Log.d("fetchColorLight", "request success.")
@@ -136,7 +136,7 @@ class MainFragmentViewModel @Inject constructor(
     val sosAlerts: LiveData<Resource<List<AppResponse>>> get() = _sosAlerts
     private fun fetchSosAlert() = viewModelScope.launch {
         _isLoading.postValue(true)
-        mainRepository.flashlights().let {
+        mainRepository.sosalerts().let {
             if (it.isSuccessful) {
                 _sosAlerts.postValue(Resource.success(it.body()))
                 Log.d("fetchSosAlert", "request success.")

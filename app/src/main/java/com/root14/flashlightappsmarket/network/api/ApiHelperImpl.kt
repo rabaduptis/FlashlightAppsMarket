@@ -7,7 +7,7 @@ import javax.inject.Inject
 class ApiHelperImpl @Inject constructor(
     private val apiService: ApiService
 ) : ApiHelper {
-    override suspend fun flashlights(): Response<List<AppResponse>> = apiService.login()
-    override suspend fun colorlights(): Response<List<AppResponse>> = apiService.register()
-    override suspend fun sosalerts(): Response<List<AppResponse>> = apiService.loadFeed()
+    override suspend fun flashlights(): Response<List<AppResponse>> = apiService.flashlights()
+    override suspend fun colorlights(): Response<List<AppResponse>> = apiService.colorlights()
+    override suspend fun sosalerts(): Response<List<AppResponse>> = apiService.sosalerts()
 }

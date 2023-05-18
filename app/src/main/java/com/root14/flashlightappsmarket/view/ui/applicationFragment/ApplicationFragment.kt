@@ -1,22 +1,13 @@
 package com.root14.flashlightappsmarket.view.ui.applicationFragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.root14.flashlightappsmarket.R
-import com.root14.flashlightappsmarket.data.DataUtils
 import com.root14.flashlightappsmarket.data.entity.ColoredLight
 import com.root14.flashlightappsmarket.data.entity.Flashlight
 import com.root14.flashlightappsmarket.data.entity.SOSAlert
@@ -25,7 +16,6 @@ import com.root14.flashlightappsmarket.model.AppItem
 import com.root14.flashlightappsmarket.model.CategoryType
 import com.root14.flashlightappsmarket.viewmodel.ApplicationFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 
 
 /**
