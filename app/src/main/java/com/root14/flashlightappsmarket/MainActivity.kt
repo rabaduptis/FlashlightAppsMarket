@@ -104,16 +104,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        //TODO:if its not in application fragment false here
-        val some = false
-        if (some) {
-            menuInflater.inflate(R.menu.main_menu, menu)
-            return true
-        } else {
-            return super.onCreateOptionsMenu(menu)
-        }
+        return super.onCreateOptionsMenu(menu)
     }
 
+    //ActionBarDrawerToggle
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             true

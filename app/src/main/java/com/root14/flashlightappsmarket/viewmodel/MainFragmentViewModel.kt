@@ -36,6 +36,7 @@ class MainFragmentViewModel @Inject constructor(
         Log.d(this::class.java.name, "has initialized")
     }
 
+    //If no record has been created in the database before, it makes api requests and saves it to the database.
     fun fetchAPI() {
         viewModelScope.launch {
             if (flashlightDao.getAllFlashlights().isEmpty()) {

@@ -46,7 +46,8 @@ class ApplicationFragmentViewModel @Inject constructor(
         val packageManager = context.packageManager
 
         try {
-            val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+            val packageInfo =
+                packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
             val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
 
             if (launchIntent != null) {
@@ -61,6 +62,7 @@ class ApplicationFragmentViewModel @Inject constructor(
         }
     }
 
+    //Checks if the application is installed on the device and opens the relevant page in the playstore
     private fun openPlayStore(packageName: String, context: Context) {
         try {
             val playStoreIntent = Intent(Intent.ACTION_VIEW)
@@ -74,8 +76,6 @@ class ApplicationFragmentViewModel @Inject constructor(
             context.startActivity(playStoreIntent)
         }
     }
-
-
 
 
     //case: add search (via name and/or packageName) support for the list.
@@ -106,6 +106,7 @@ class ApplicationFragmentViewModel @Inject constructor(
 
     //----------------------------------------------------------------------------------------------
 
+    //fetches api
     fun fetchDB() {
         viewModelScope.launch {
             getAllFlashlights()
