@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.navigation.NavigationView
 import com.root14.flashlightappsmarket.databinding.ActivityMainBinding
 import com.root14.flashlightappsmarket.model.CategoryType
+import com.root14.flashlightappsmarket.view.ui.applicationFragment.ApplicationFragmentDirections
 import com.root14.flashlightappsmarket.view.ui.mainFragment.MainFragmentDirections
 import com.root14.flashlightappsmarket.viewmodel.ApplicationFragmentViewModel
 import com.root14.flashlightappsmarket.viewmodel.MainFragmentViewModel
@@ -50,6 +51,14 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
+
+        val action = ApplicationFragmentDirections.actionApplicationFragmentToMainFragment()
+        //floating action button
+        binding.fab.setOnClickListener {
+            //case Add “refresh” option to make a new network query
+            //I understood it as choosing a new category
+            navController.navigate(action)
+        }
 
         //drawer menu
         binding.navigationView.setNavigationItemSelectedListener { item ->
