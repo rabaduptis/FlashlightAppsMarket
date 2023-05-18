@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         //action bar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mainFragmentViewModel.viewModelScope.launch {
-            mainFragmentViewModel.sampleReq()
+        mainFragmentViewModel.flashLightRes.observe(this) {
+            println("geldi $it")
         }
 
     }
