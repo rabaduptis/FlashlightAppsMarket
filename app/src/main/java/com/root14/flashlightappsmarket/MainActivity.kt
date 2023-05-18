@@ -2,14 +2,24 @@ package com.root14.flashlightappsmarket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.SearchView
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.viewModelScope
 import com.root14.flashlightappsmarket.databinding.ActivityMainBinding
+import com.root14.flashlightappsmarket.viewmodel.MainFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    private val mainFragmentViewModel: MainFragmentViewModel by viewModels()
 
     lateinit var drawerLayout: DrawerLayout
     lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
@@ -32,8 +42,21 @@ class MainActivity : AppCompatActivity() {
         //action bar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        mainFragmentViewModel.viewModelScope.launch {
+            mainFragmentViewModel.sampleReq()
+        }
 
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //TODO:if its not in application fragment false here
+        val some = true
+        if (some) {
+            menuInflater.inflate(R.menu.main_menu, menu)
+            return true
+        } else {
+            return super.onCreateOptionsMenu(menu)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
