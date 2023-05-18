@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.root14.flashlightappsmarket.R
+import com.root14.flashlightappsmarket.data.QueryType
 import com.root14.flashlightappsmarket.data.entity.ColoredLight
 import com.root14.flashlightappsmarket.data.entity.Flashlight
 import com.root14.flashlightappsmarket.data.entity.SOSAlert
@@ -18,6 +21,7 @@ import com.root14.flashlightappsmarket.model.AppItem
 import com.root14.flashlightappsmarket.model.CategoryType
 import com.root14.flashlightappsmarket.viewmodel.ApplicationFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 /**
@@ -53,29 +57,91 @@ class ApplicationFragment : Fragment() {
         applicationFragmentViewModel.fetchDB()
         (activity as AppCompatActivity).supportActionBar?.title = args.categoryType.toString()
 
-        when (args.categoryType) {
-            CategoryType.FLASHLIGHTS -> {
-                applicationFragmentViewModel.getAllFlashlightsRes.observe(viewLifecycleOwner) {
-                    setupAppAdapter(it.flashlightToAppItemList())
-                }
+        updateUi(args)//list all apps
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                updateUi(args = args, QueryType.PARAMETERIZED, p0.toString())
+                println("search query $p0")
+                return true
             }
 
-            CategoryType.COLOREDLIGHTS -> {
-                applicationFragmentViewModel.getAllColorLightRes.observe(viewLifecycleOwner) {
-                    setupAppAdapter(it.coloredLight2AppItemList())
+            override fun onQueryTextChange(p0: String?): Boolean {
+                if (p0.isNullOrBlank()) {
+                    updateUi(args)
                 }
+                return true
             }
 
-            CategoryType.SOSALERTS -> {
-                applicationFragmentViewModel.getAllSosAlerts.observe(viewLifecycleOwner) {
-                    setupAppAdapter(it.sosAlert2AppItemList())
+        })
+    }
+
+    private fun updateUi(
+        args: ApplicationFragmentArgs,
+        queryType: QueryType = QueryType.UNPARAMETER,
+        searchQuery: String = ""
+    ) {
+        applicationFragmentViewModel.viewModelScope.launch {
+            if (queryType == QueryType.UNPARAMETER) {
+                when (args.categoryType) {
+                    CategoryType.FLASHLIGHTS -> {
+                        applicationFragmentViewModel.getAllFlashlightsRes.observe(viewLifecycleOwner) {
+                            setupAppAdapter(it.flashlightToAppItemList())
+                        }
+                    }
+
+                    CategoryType.COLOREDLIGHTS -> {
+                        applicationFragmentViewModel.getAllColorLightRes.observe(viewLifecycleOwner) {
+                            setupAppAdapter(it.coloredLight2AppItemList())
+                        }
+                    }
+
+                    CategoryType.SOSALERTS -> {
+                        applicationFragmentViewModel.getAllSosAlerts.observe(viewLifecycleOwner) {
+                            setupAppAdapter(it.sosAlert2AppItemList())
+                        }
+                    }
+
+                    CategoryType.DEFAULT -> {
+
+                    }
                 }
-            }
+            } else if (queryType == QueryType.PARAMETERIZED) {
+                when (args.categoryType) {
+                    CategoryType.FLASHLIGHTS -> {
+                        applicationFragmentViewModel.flashLightSearchByName(searchQuery)
+                        applicationFragmentViewModel.flashLightSearchByName.observe(
+                            viewLifecycleOwner
+                        ) {
+                            setupAppAdapter(it.flashlightToAppItemList())
+                        }
+                    }
 
-            CategoryType.DEFAULT -> {
+                    CategoryType.COLOREDLIGHTS -> {
+                        applicationFragmentViewModel.colorLightSearchByName(searchQuery)
+                        applicationFragmentViewModel.colorLightSearchByName.observe(
+                            viewLifecycleOwner
+                        ) {
+                            setupAppAdapter(it.coloredLight2AppItemList())
+                        }
+                    }
 
+                    CategoryType.SOSALERTS -> {
+                        applicationFragmentViewModel.sosAlertsSearchByName(searchQuery)
+                        applicationFragmentViewModel.sosAlertsSearchByName.observe(
+                            viewLifecycleOwner
+                        ) {
+                            setupAppAdapter(it.sosAlert2AppItemList())
+                        }
+                    }
+
+                    CategoryType.DEFAULT -> {
+
+                    }
+                }
             }
         }
+
     }
 
     override fun onDestroy() {

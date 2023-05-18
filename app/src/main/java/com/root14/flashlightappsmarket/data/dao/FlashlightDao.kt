@@ -13,4 +13,7 @@ interface FlashlightDao {
 
     @Query("SELECT * FROM flashlights")
     suspend fun getAllFlashlights(): List<Flashlight>
+
+    @Query("SELECT * FROM flashlights WHERE name LIKE '%' || :name || '%'")
+    suspend fun searchByName(name: String): List<Flashlight>
 }

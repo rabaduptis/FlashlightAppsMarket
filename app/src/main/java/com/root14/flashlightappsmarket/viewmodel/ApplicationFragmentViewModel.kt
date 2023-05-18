@@ -42,6 +42,43 @@ class ApplicationFragmentViewModel @Inject constructor(
         }
     }
 
+    private suspend fun sortRaitingValue() {
+
+    }
+
+    private suspend fun raitingCount() {
+
+    }
+
+
+    //add search (via name and/or packageName) support for the list.
+    // and/or based on "or" preferred
+    //----------------------------------------------------------------------------------------------
+
+    //region searchByName
+    private val _flashLightSearchByName = MutableLiveData<List<Flashlight>>()
+    val flashLightSearchByName: LiveData<List<Flashlight>> get() = _flashLightSearchByName
+    suspend fun flashLightSearchByName(name: String) = viewModelScope.launch {
+        _getAllFlashlightsRes.postValue(flashlightDao.searchByName(name))
+    }
+
+
+    private val _colorLightSearchByName = MutableLiveData<List<ColoredLight>>()
+    val colorLightSearchByName: LiveData<List<ColoredLight>> get() = _colorLightSearchByName
+    suspend fun colorLightSearchByName(name: String) = viewModelScope.launch {
+        _colorLightSearchByName.postValue(coloredLightDao.searchByName(name))
+    }
+
+
+    private val _sosAlertsSearchByName = MutableLiveData<List<SOSAlert>>()
+    val sosAlertsSearchByName: LiveData<List<SOSAlert>> get() = _sosAlertsSearchByName
+    suspend fun sosAlertsSearchByName(name: String) = viewModelScope.launch {
+        _colorLightSearchByName.postValue(coloredLightDao.searchByName(name))
+    }
+    //endregion
+
+    //----------------------------------------------------------------------------------------------
+
     fun fetchDB() {
         viewModelScope.launch {
             getAllFlashlights()

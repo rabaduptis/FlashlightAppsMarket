@@ -13,4 +13,7 @@ interface SOSAlertDao {
 
     @Query("SELECT * FROM sos_alerts")
     suspend fun getAllSOSAlerts(): List<SOSAlert>
+
+    @Query("SELECT * FROM sos_alerts WHERE name LIKE '%' || :name || '%'")
+    suspend fun searchByName(name: String): List<SOSAlert>
 }

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.root14.flashlightappsmarket.data.entity.ColoredLight
+import com.root14.flashlightappsmarket.data.entity.Flashlight
 
 @Dao
 interface ColoredLightDao {
@@ -13,4 +14,7 @@ interface ColoredLightDao {
 
     @Query("SELECT * FROM colored_lights")
     suspend fun getAllColoredLights(): List<ColoredLight>
+
+    @Query("SELECT * FROM colored_lights WHERE name LIKE '%' || :name || '%'")
+    suspend fun searchByName(name: String): List<ColoredLight>
 }
