@@ -50,6 +50,7 @@ class MainFragmentViewModel @Inject constructor(
                 fetchSosAlert()
             }
         }
+        _isLoading.postValue(false)
     }
 
     private val _flashLightRes = MutableLiveData<Resource<List<AppResponse>>>()

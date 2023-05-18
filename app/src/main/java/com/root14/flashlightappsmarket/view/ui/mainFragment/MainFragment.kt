@@ -1,5 +1,6 @@
 package com.root14.flashlightappsmarket.view.ui.mainFragment
 
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -43,6 +44,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mainFragmentViewModel.isLoading.observe(viewLifecycleOwner) {
+            isLoading(it)
+        }
+
         val categoryList = createCategoryList()
         categoryAdapter = CategoryAdapter(categoryList) { categoryItem ->
             println("clicked ${categoryItem.name}")
@@ -79,4 +84,18 @@ class MainFragment : Fragment() {
             CategoryType.SOSALERTS
         )
     )
+
+    private fun isLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.loadingBar.visibility = View.VISIBLE
+            binding.rvCategories.visibility = View.INVISIBLE
+            binding.rvCategories.isEnabled = false
+            binding.rvCategories.isClickable = false
+        } else {
+            binding.loadingBar.visibility = View.INVISIBLE
+            binding.rvCategories.visibility = View.VISIBLE
+            binding.rvCategories.isEnabled = true
+            binding.rvCategories.isClickable = true
+        }
+    }
 }
