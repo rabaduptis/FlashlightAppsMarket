@@ -11,4 +11,6 @@
     <string name="sos_alerts">SOS Alerts</string>
     <string name="category_name">Category Name</string>
     <string name="search">Search</string>
+    <string name="sort_prompt">Select Sort Option</string>
+    <string name="search_hint">Search Some</string>
 </resources>

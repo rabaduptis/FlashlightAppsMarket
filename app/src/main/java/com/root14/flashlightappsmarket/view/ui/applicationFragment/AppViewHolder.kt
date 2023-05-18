@@ -24,10 +24,15 @@ class AppViewHolder(private val binding: ItemAppBinding) : RecyclerView.ViewHold
             .transition(DrawableTransitionOptions.withCrossFade())
             .into(binding.imageViewIcon)
         binding.textViewName.text = appItem.name
-        binding.textViewRatingValue.text = appItem.ratingValue.toString()
-        binding.textViewRatingCount.text = appItem.ratingCount.toString()
-        binding.textViewDownloadCount.text = appItem.downloadCount.toString()
-        binding.ratingBar.rating = appItem.ratingValue.toFloat()
+        binding.textViewRatingValue.text = appItem.ratingValue
+        binding.textViewRatingCount.text = appItem.ratingCount
+        binding.textViewDownloadCount.text = appItem.downloadCount
+
+        if (appItem.ratingValue != "null") {
+            binding.ratingBar.rating = appItem.ratingValue.toFloat()
+        }
+
+
     }
 
     companion object {
